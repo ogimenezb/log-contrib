@@ -4,6 +4,6 @@ go 1.16
 
 require (
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/phuslu/log v1.0.81
+	github.com/phuslu/log v1.0.83
 	gorm.io/gorm v1.24.0
 )
