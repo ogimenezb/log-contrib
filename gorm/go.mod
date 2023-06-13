@@ -3,7 +3,6 @@ module github.com/phuslu/log-contrib/gorm
 go 1.16
 
 require (
-	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/phuslu/log v1.0.83
-	gorm.io/gorm v1.24.0
+	github.com/phuslu/log v1.0.88
+	gorm.io/gorm v1.25.1
 )
