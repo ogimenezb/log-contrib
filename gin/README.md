@@ -14,9 +14,9 @@ import (
 	"os"
 	"time"
 
-	ginlogger "github.com/phuslu/log-contrib/gin"
 	"github.com/gin-gonic/gin"
 	"github.com/phuslu/log"
+	ginlogger "github.com/phuslu/log-contrib/gin"
 )
 
 func main() {
@@ -38,27 +38,22 @@ func main() {
 
 	r := gin.New()
 
-	// Add a logger middleware, which:
-	//   - Logs all requests, like a combined access and error log.
-	//   - Logs to stdout.
-	r.Use(ginlogger.SetLogger())
-
 	// Custom logger
-	r.Use(ginlogger.SetLogger(ginlogger.Config{
-		Logger: &log.Logger{
+	r.Use(ginlogger.New(
+		&log.Logger{
+			Context: log.NewContext(nil).Str("foo", "bar").Value(),
 			Writer: &log.FileWriter{
 				Filename: "access.log",
 				MaxSize:  1024 * 1024 * 1024,
 			},
 		},
-		Context: log.NewContext(nil).Str("foo", "bar").Value(),
-		Skip:    func(c *gin.Context) bool {
+		func(c *gin.Context) bool {
 			if c.Request.URL.Path == "/backdoor" {
 				return true
 			}
 			return false
-		},
-	}))
+		}),
+	)
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong "+fmt.Sprint(time.Now().Unix()))
