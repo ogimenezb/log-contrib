@@ -1,4 +1,4 @@
-module github.com/phuslu/log-contrib/grpc
+module github.com/phuslu/log-contrib/grpcgateway
 
 go 1.16
 
